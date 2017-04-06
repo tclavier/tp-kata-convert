@@ -176,4 +176,4 @@ Après cette étape, votre programme doit être capable de gérer le cas des zé
 
 * 90,111€ => "Quatre-vingt-dix euro et onze cent"
 
-Après cette étape, votre programme doit être capable de gérer les arondis de cents.
+Après cette étape, votre programme doit être capable de gérer les arrondis de cents.
