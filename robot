@@ -12,7 +12,7 @@ do
 		git clone https://git-iut.univ-lille1.fr/$ETU/kata-convert target/$ETU
 	done
 
-	for ETU in $(getent group info-n2p2-j| cut -f 4 -d ':' | tr ',' ' ')
+	for ETU in $(getent group info-$GROUP| cut -f 4 -d ':' | tr ',' ' ')
 	do
 		NAME=$(getent passwd $ETU| cut -f 5 -d ':')
 		POINTS=0
