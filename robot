@@ -1,20 +1,28 @@
 #!/bin/bash
-REPORT=n2p2-j.md
-rm -rf target
-rm $REPORT
-mkdir target
 
-for ETU in $(getent group info-n2p2-j| cut -f 4 -d ':' | tr ',' ' ')
+for GROUP in n2p2-j n2p2-i
 do
-	git clone https://git-iut.univ-lille1.fr/$ETU/kata-convert target/$ETU
-done
+	REPORT=$GROUP.md
+	rm -rf target
+	rm $REPORT
+	mkdir target
 
-for ETU in $(getent group info-n2p2-j| cut -f 4 -d ':' | tr ',' ' ')
-do
-	POINTS=0
-	[ -d target/$ETU ] && POINTS=$(($POINT +1))
-	[ -f target/$ETU/.gitignore ] && POINTS=$(($POINT +1))
+	for ETU in $(getent group info-$GROUP| cut -f 4 -d ':' | tr ',' ' ')
+	do
+		git clone https://git-iut.univ-lille1.fr/$ETU/kata-convert target/$ETU
+	done
 
-	echo "$ETU $POINTS" >> $REPORT
-	
+	for ETU in $(getent group info-n2p2-j| cut -f 4 -d ':' | tr ',' ' ')
+	do
+		NAME=$(getent passwd $ETU| cut -f 5 -d ':')
+		POINTS=0
+		[ -d target/$ETU ] && POINTS=$(($POINTS +1))
+		[ -f target/$ETU/.gitignore ] && POINTS=$(($POINTS +1))
+		[ -d target/$ETU/bin ] && POINTS=$(($POINTS -10))
+		[ -f target/$ETU/src/fr/univlille1/iutinfo/convert/Convert.java ] && POINTS=$(($POINTS +1))
+		[ -f target/$ETU/src/fr/univlille1/iutinfo/convert/ConvertTest.java ] && POINTS=$(($POINTS +1))
+
+		echo "$NAME $POINTS" >> $REPORT
+		
+	done
 done
