@@ -23,9 +23,9 @@ Pour mémoire les étapes du TDD sont les suivantes :
 
 ### Éclipse
 * Dans Éclipse, créer un nouveau "Java Project" nommé "kata-convert".
-* Initialiser le répertoire du projet comme un projet git.
 
 ### Git
+* Initialiser le répertoire du projet comme un projet git.
 * Configurer le "remote" pour utiliser votre projet gitlab.
 * Configurer votre projet pour ignorer le répertoire `bin`
 * Commit, push
