@@ -1,18 +1,24 @@
 # Objectif
 
-L'objectif du TP est de réaliser un convertisseur numérique vers texte en français.
+L'objectif du TP est de réaliser en binôme un convertisseur numérique vers texte en français.
 
 Je vous invite à utiliser toutes les étapes du TDD pour réaliser ce TP.
 
 Pour mémoire les étapes du TDD sont les suivantes :
 
-* Écrire un test
-* Vérifier qu'il est rouge
-* Commit
-* Faire l'implémentation pour faire passer le test au vert
+* Binôme 1 écrit un test et vérifie qu'il est rouge
+* Commit, push
+* Binôme 2 fait l'implémentation pour faire passer le test au vert
 * Commit et push
-* Restructurer le code pour qu'il soit simple (KISS et YAGNI) bien structuré (DRY) et lisible
+* Binôme 2 restructure le code pour qu'il soit simple (KISS et YAGNI) bien structuré (DRY) et lisible
 * Commit et push
+* Binôme 2 écrit un test et vérifie qu'il est rouge
+* Commit, push
+* Binôme 1 fait l'implémentation pour faire passer le test au vert
+* Commit et push
+* Binôme 1 restructure le code pour qu'il soit simple (KISS et YAGNI) bien structuré (DRY) et lisible
+* Commit et push
+* etc.
 
 ## Initialisation
 
@@ -20,15 +26,33 @@ Pour mémoire les étapes du TDD sont les suivantes :
 
 * Dans le gitlab de l'IUT, créez un nouveau projet privé nommé "kata-convert".
 * Ajouter l'utilisateur "thomas.clavier" comme développeur.
+* Ajouter votre binôme comme développeur
 
 ### Éclipse
-* Dans Éclipse, créer un nouveau "Java Project" nommé "kata-convert".
+* Sur le poste de "Binôme 1", dans Éclipse, créer un nouveau "Java Project" nommé "kata-convert".
 
 ### Git
-* Initialiser le répertoire du projet comme un projet git.
-* Configurer le "remote" pour utiliser votre projet gitlab.
-* Configurer votre projet pour ignorer le répertoire `bin`
-* Commit, push
+Initialiser le répertoire du projet comme un projet git. 
+
+    cd ~/workspace/kata-convert
+    git init
+
+Configurer le "remote" pour utiliser votre projet gitlab.
+
+    git remote add origin https://git-iut.univ-lille1.fr/thomas.clavier/kata-convert.git
+
+
+Configurer votre projet pour ignorer le répertoire `bin` ainsi que les fichiers d'Éclipse `.classpath`, `.project`, `.settings`
+
+    echo bin/ > .gitignore
+    echo .classpath >> .gitignore
+    echo .project >> .gitignore
+    echo .settings/ >> .gitignore
+
+Commit, push
+
+    git add .gitignore
+    git commit -m "Ignore binaries and Eclipse files"
 
 ## Premier test
 
@@ -76,9 +100,24 @@ Vous devriez obtenir l'erreur suivante :
 java.lang.AssertionError: expected:<Un> but was:<null>
 ```
 
-* Commit
-* Faire passer le test au vert
-* Commit, push
+Commit, push
+
+    git add src/fr/univlille1/iutinfo/convert/Convert.java
+    git add src/fr/univlille1/iutinfo/convert/ConvertTest.java
+    git commit -m "Add test 1 -> Un"
+    git push -u origin master
+
+Sur le poste de "Binôme 2", récupérer le code 
+
+    cd workspace
+    git clone https://git-iut.univ-lille1.fr/thomas.clavier/kata-convert.git
+
+Dans Éclipse, créez un nouveau projet utilisant le répertoire fraichement cloné puis faire passer le test au vert
+
+Commit, push
+    
+    git commit -am "Implement test 1 -> Un"
+
 * Rendre le code le plus simple et le plus lisible possible
 * Si vous avez modifié le code : commit, push
 
@@ -86,7 +125,7 @@ java.lang.AssertionError: expected:<Un> but was:<null>
 
 * Écrire un test qui vérifie que l'appel à la méthode "numeric2french" avec le paramètre `3` retourne `Trois`
 * Vérifier qu'il compile bien et qu'il est rouge
-* Commit
+* Commit push
 * Faire passer le test au vert
 * Commit, push
 * Rendre le code le plus simple et le plus lisible possible
@@ -152,7 +191,7 @@ Après cette étape, votre programme doit être capable de fonctionner jusqu'à 
 
 Après cette étape, votre programme doit être capable de fonctionner jusqu'à 1999
 
-* 7830 => "Sept mille huigt cent trente"
+* 7830 => "Sept mille huit cent trente"
 
 Après cette étape, votre programme doit être capable de fonctionner jusqu'à 9999
 
@@ -175,5 +214,6 @@ Après cette étape, votre programme doit être capable de fonctionner jusqu'à 
 Après cette étape, votre programme doit être capable de gérer le cas des zéros non significatifs de droite ont été supprimés.
 
 * 90,111€ => "Quatre-vingt-dix euro et onze cent"
+* 90,119€ => "Quatre-vingt-dix euro et douze cent"
 
 Après cette étape, votre programme doit être capable de gérer les arrondis de cents.
